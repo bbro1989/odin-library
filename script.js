@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       myLibrary.forEach(book => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.setAttribute('data-id', id);
         card.textContent = `Title: ${book.title}\nAuthor: ${book.author}\nPages: ${book.pages} pages\nRead: ${book.read ? 'Yes' : 'No'}`;
         display.appendChild(card);
       });
