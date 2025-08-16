@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     this.pages = pages;
     this.read = read;
   }
-
+  Book.prototype.toggleRead = function () {
+    this.read = !this.read
+  }
   function addBookToLibrary(title, author, pages, read) {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
@@ -43,10 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
         card.textContent = `Title: ${book.title}\nAuthor: ${book.author}\nPages: ${book.pages} pages\nRead: ${book.read ? 'Yes' : 'No'}`;
         
         const removeBtn = document.createElement('button');
+        removeBtn.style.display = "block";
         removeBtn.textContent = 'Remove';
         removeBtn.addEventListener('click', removeBook);
         card.appendChild(removeBtn);
         display.appendChild(card);
+        const toggleBtn = document.createElement('button');
+        toggleBtn.style.display = "block";
+        toggleBtn.textContent = 'Toggle Read';
+        toggleBtn.addEventListener('click', () => {
+          const id = card.getAttribute('data-id');
+          const book = myLibrary.find(book => book.id === id);
+          if(book) {
+            book.toggleRead();
+            displayBooks();
+          }
+        });
+        card.appendChild(toggleBtn);
       });
      }
   }
