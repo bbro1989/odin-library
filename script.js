@@ -39,11 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
       myLibrary.forEach(book => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.setAttribute('data-id', id);
+        card.setAttribute('data-id', book.id);
         card.textContent = `Title: ${book.title}\nAuthor: ${book.author}\nPages: ${book.pages} pages\nRead: ${book.read ? 'Yes' : 'No'}`;
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', removeBook);
+        card.appendChild(removeBtn);
         display.appendChild(card);
       });
+     }
+  }
+  function removeBook(event) {
+    const card = event.target.closest('.card'); 
+    const id = card.getAttribute('data-id'); 
+
+    
+    const bookIndex = myLibrary.findIndex(book => book.id === id);
+    if (bookIndex !== -1) {
+      myLibrary.splice(bookIndex, 1);
     }
+
+  
+    displayBooks();
   }
 
   myBookStock.forEach(book => {
